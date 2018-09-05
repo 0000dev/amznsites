@@ -1,0 +1,545 @@
+
+html {
+  color: #444;
+}
+
+body{
+  background: url("/img/seamless1.png");
+  background-size: 380px,contain;
+  justify-content: center;
+}
+
+h1, h2, h3 {
+  letter-spacing: 1px;
+  color: #34495e;
+}
+.content {
+    margin: 0 auto;
+    max-width: 1000px;
+    line-height: 1.5em;
+}
+
+.headermenu {
+	background-color: lightgrey;
+}
+
+.tab2 img{
+  height:100px;
+}
+
+.logo{
+  height: 35px;
+  float: left;
+  padding-top: -29px;
+  margin: -6px;
+  padding-right: 12px;
+}
+
+.comments {
+  border:1px solid lightgrey;
+  padding: 20px;
+  margin-bottom:15px;
+
+}
+
+.neighbors {
+  padding: 15px;
+  border:1px solid lightgrey;
+  margin-bottom: 15px;
+}
+
+.margintop15 {
+  margin-top:15px; 
+}
+
+.padding10 {
+  padding: 10px;
+}
+
+.setborder {
+  border:1px solid lightgrey;
+}
+
+
+
+.homepage.bigheader{
+  background: url('/img/homepage-drums-min.jpg');
+  height: 600px;
+  background-size: cover;
+}
+
+.bigheader form{
+  padding:15%;
+  width:100%;
+}
+
+.bigheader form input {
+  width:100%;
+  height:50px;
+}
+
+.homepage .searchlinediv{
+  padding:40px;
+  background-color:#fff9;
+  border-radius: 10px;
+}
+
+.slickslider {
+  overflow:hidden;
+}
+
+.slickslider .comments{
+  height:200px;
+}
+
+.slickslider .comments .commentsheader{
+  float:left; 
+  margin-right:20px;
+}
+
+.darkfooter ul{
+  margin: 0;
+  padding: 0;
+}
+
+.darkfooter{
+  background: #444;
+  height: 200px;
+  background-size: cover;
+}
+
+.darkfooter .pure-g{
+  border:1px solid #727272;
+  border-top-color:#444;
+  margin-top:15px;
+  padding:20px;
+}
+
+.darkfooter b{
+  color:#FFC300;
+}
+
+.darkfooter .pure-g li {
+  list-style-type: none;
+}
+
+.darkfooter .pure-g li a {
+  color: lightgrey ;
+  text-decoration: none;
+}
+
+
+/*rating on feedback comments begin*/
+.rating {
+    overflow: hidden;
+    display: inline-block;
+    font-size: 0;
+    position: relative;
+}
+.rating-input {
+    float: right;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    margin: 0 0 0 -16px;
+    opacity: 0;
+}
+.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+.rating-star,
+.rating:hover .rating-star {
+    position: relative;
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    background: url('/img/star.png') 0 -16px;
+}
+/*rating on feedback comments end*/
+
+
+/* Vertical align CSS begin */
+
+.outer{
+  margin:50px auto;
+  height: 100px;
+  background: #f7f7f7;
+  border:1px solid #ddd;
+  padding: 20px;
+}
+
+
+.venuescheduledetails {
+  padding:5px;
+  font-size:12px;
+  padding-left: 15px;
+}
+
+.venueschedulecontainer{
+  margin:5px;
+  border:1px solid #ddd;
+  width:100%;
+}
+
+.venueouter{
+  /*margin:50px auto;*/
+  height: 133px;
+  background: #f7f7f7;
+  border-right:1px solid #ddd;
+  padding: 20px;
+}
+
+.venueouter img {
+  width: 100%;
+  max-width:200px;
+}
+
+.vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+
+.header h1 {
+  margin-bottom: 0px;
+  line-height: 1em;
+  font-size: 1.7em;
+}
+
+.header .crumps{
+  font-size: 10px; margin-bottom: 1em;
+  display:block;
+  float: right;
+}
+
+.toppanel {
+  background: lightgrey;
+}
+
+.toppanel .artistimage{
+  height:250px;
+  margin: auto;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  /*WHEN AD IS PRESENT*/
+  /*background-position: calc(50% - 50px) 50%;*/
+}
+
+.artistimage img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.toppanel .venueimage{
+  height:150px;
+  margin-top:50px;
+  /*background:white;*/
+}
+
+
+.comments .stars{
+  float:left;
+}
+
+.comments .username{
+  float:right;
+  font-size: 12px;
+}
+
+.comments .feebacktext{
+  padding:35px 0px 10px 0px;
+}
+
+.comments .placeandtime{
+  font-size: 12px;
+}
+/* Vertical align CSS end */
+
+
+/* Menu begin */
+
+.custom-wrapper {
+    background-color: lightgrey;
+    margin-bottom: 1em;
+    -webkit-font-smoothing: antialiased;
+    height: 3em;
+    overflow: hidden;
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    transition: height 0.5s;
+}
+
+.custom-wrapper .pure-menu-link, .pure-menu-heading {
+    padding: .7em 1em;
+}
+
+.custom-wrapper .pure-form {
+  padding: .3em;  
+  width: 100%;
+}
+
+
+.custom-wrapper input[type="text"], textarea {
+
+  background-color : white; 
+  width: 100%
+
+}
+
+.custom-wrapper.open {
+    height: 14em;
+}
+
+.custom-menu-3 {
+    text-align: right;
+}
+
+.custom-toggle {
+    width: 34px;
+    height: 34px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+
+.custom-toggle .bar {
+    background-color: #777;
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 100px;
+    position: absolute;
+    top: 18px;
+    right: 7px;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.custom-toggle .bar:first-child {
+    -webkit-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+    transform: translateY(-6px);
+}
+
+.custom-toggle.x .bar {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.custom-toggle.x .bar:first-child {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+@media (max-width: 47.999em) {
+
+    .custom-menu-3 {
+        text-align: left;
+    }
+
+    .custom-toggle {
+        display: block;
+    }
+
+}
+
+
+/* Menu end */
+
+.artistdescriptionblock {
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid lightgrey;
+  padding: 15px;
+}
+
+.scheduleblock {
+  max-height: 300px;
+  /*border: 1px solid lightgrey;*/
+  overflow: scroll;
+  padding: 15px;
+}
+
+.schedule{
+  display: inline-block;
+  float: left;
+  margin: 10px;
+  border: 1px solid #eeeeef;
+  padding: 15px;
+  overflow: hidden;
+  width: 215px;
+  height: 145px;
+  font-size:12px;
+}
+
+.schedule:hover {
+  background-color: #efeff5;
+}
+
+.schedule .tmimage:hover{
+  cursor: pointer;
+}
+
+.schedule .item{
+  width:100%; 
+  height:23px; 
+  overflow:hidden;
+}
+
+.venueitem {
+  width:100%; 
+  height:23px; 
+  overflow:hidden;
+}
+
+.artistphotosblock {
+  max-height: 500px;
+  overflow: scroll;
+  border: 1px solid lightgrey;
+  padding: 15px;
+}
+
+.home.artistphotosblock {
+  max-height:initial;
+  overflow: auto;
+}
+
+.smallphotoblock{
+  max-height: 300px !important;
+  overflow: auto;
+}
+
+/* Image grid begin */
+
+.photos {
+  /* Prevent vertical gaps */
+  line-height: 0;
+   
+  -webkit-column-count: 5;
+  -webkit-column-gap:   0px;
+  -moz-column-count:    5;
+  -moz-column-gap:      0px;
+  column-count:         5;
+  column-gap:           0px;  
+}
+
+.photos img {
+  /* Just in case there are inline attributes */
+  max-width: 100% !important;
+  height: auto !important;
+  padding: 0.2em;
+}
+
+@media (max-width: 1200px) {
+  .photos {
+  -moz-column-count:    4;
+  -webkit-column-count: 4;
+  column-count:         4;
+  }
+}
+@media (max-width: 1000px) {
+  .photos {
+  -moz-column-count:    3;
+  -webkit-column-count: 3;
+  column-count:         3;
+  }
+
+  .scheduleblock {
+    max-height: 300px;
+    padding-left: 7%;
+  }
+}
+@media (max-width: 800px) {
+  .photos {
+  -moz-column-count:    2;
+  -webkit-column-count: 2;
+  column-count:         2;
+  }
+
+  .scheduleblock {
+    max-height: 300px;
+    padding-left: 18%;
+  }
+}
+@media (max-width: 400px) {
+  .photos {
+  -moz-column-count:    1;
+  -webkit-column-count: 1;
+  column-count:         1;
+  }
+}
+
+.photos > img {
+  display: block;
+  width: 200px;
+  transition: .1s transform;
+  transform: translateZ(0); /* hack */
+}
+
+.photos > img:hover {
+  z-index: 1;
+  transform: scale(1.7,1.7);
+  transition: .3s transform;
+}
+
+/* Image grid end */
+
+
+.homepageimage{
+  height: 160px;
+}
+
+.listimage{
+  width: 95%;
+}
+/** LIGHTBOX MARKUP begin **/ 
+
+.lightbox {
+  /** Default lightbox to hidden */
+  display: none;
+
+  /** Position and style */
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+}
+
+.lightbox img {
+  /** Pad the lightbox image */
+  max-width: initial;
+  max-height: initial;
+  margin-top: 2%;
+}
+
+.lightbox:target {
+  /** Remove default browser outline */
+  outline: none;
+
+  /** Unhide lightbox **/
+  display: block;
+}
+
+/** LIGHTBOX MARKUP end **/ 

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <title>{% block title %}Altershopper. Reviews of All Things{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="/css/pure-min.css">
+            <link rel="stylesheet" type="text/css" href="/css/pure-extend.css">
+            <!--[if lte IE 8]>
+                <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
+            <![endif]-->
+            <!--[if gt IE 8]><!-->
+                <link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css">
+            <!--<![endif]-->
+            <link rel="stylesheet" type="text/css" href="/css/tickets.css">
+            <link rel="stylesheet" type="text/css" href="/css/tabs.css">
+            <link rel="stylesheet" href="/css/fontawesome-all.min.css">
+
+            <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+            <script src="/js/jquery.nicescroll.js"></script>
+
+        {% endblock %}
+    </head>
+
+    <body>
+
+        {{defaultStrategy}}
+
+        <div class="content">
+
+            <!-- top header menu / better to do with native menu? -->
+            <div class="custom-wrapper pure-g" id="menu">
+                <div class="pure-u-1 pure-u-md-1-5">
+                    <div class="pure-menu">
+
+                        <a href="/" class="pure-menu-heading custom-brand">
+                            <img alt="altershopper logo" class="logo" src="/img/logo3.png"/>
+                            AlterShopper
+                        </a>
+                        <a href="#" class="custom-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
+                    </div>
+                </div>
+                <div class="pure-u-1 pure-u-md-3-5">
+                    <div class="pure-menu pure-menu-horizontal custom-can-transform">
+                        
+                            <form class="pure-form" action="/search" method="POST"><input name="search" type="text" class="pure-input-rounded" placeholder="What are you looking for?" onkeydown="if (event.keyCode == 13) myFunction(this.value)"></form>
+                        
+                    </div>
+                </div>
+                {# <div class="pure-u-1 pure-u-md-2-5">
+                    <div class="pure-menu pure-menu-horizontal custom-menu-3 custom-can-transform">
+                        <ul class="pure-menu-list">
+                            <li class="pure-menu-item"><a href="/category/2" class="pure-menu-link">Classics</a></li>
+                       
+                        </ul>
+                    </div>
+                </div> #}
+            </div>
+       
+        {% block body %}{% endblock %}
+
+        </div>
+
+        <div class="darkfooter">
+            <div class="content">
+
+                <div class="pure-g">
+                <div class="pure-u-1-1">
+                   <b>More information</b>
+                    <ul>
+                        <li><a href="/page/privacy-policy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                </div>
+
+            </div>
+        </div>
+
+        {% block javascripts %}
+
+        {% endblock %}
+    
+    </body>
+</html>

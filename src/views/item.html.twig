@@ -1,0 +1,326 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ item.name }} Customers Reviews{% endblock %}
+
+{% block body %}
+
+<div class="pure-g header">
+	<div class="pure-u-1">
+		
+		<h1>{{item.name}}</h1>
+		
+		{# <span>By {{item.author}}</span> #}
+
+		<div class="crumps">
+			{% for category in item.cats %}
+				<a href="/category/{{item.cats_id[loop.index0]}}">{{category}}</a>
+			{% endfor %}
+		</div>
+		
+	</div>
+
+	<br>
+	
+</div>
+
+
+<div class="pure-g toppanel">
+	{# <div class="pure-u-1 pure-u-sm-3-5">
+		<center>
+			<p>
+				<div class="artistimage">
+				 
+				<img class="vertical-align" src="{% if item.image|length > 0 %} {{item.image}} {% else %} /img/noimage.jpg {% endif %}"/>
+		 
+				</div>
+			</p>
+		</center>
+	</div>
+	<div class="pure-u-1 pure-u-sm-2-5">
+		<center>
+			<p><img src="/img/badge-ad.jpg"></p>
+		</center>
+	</div> #}
+
+	<div class="pure-u-1">
+		 
+		<div class="artistimage" style="background-image: url('{% if item.image|length > 0 %}/img/books_bg/{{item.image}}.jpg{% else %}/img/bg1.jpg{% endif %}');">
+
+			{# <div style="background:red;width:300px;height:250px;float:right;">ad</div>  #}			 
+		 		
+		</div>
+
+	</div>
+</div>
+
+{# <div class="pure-g">
+	<div class="pure-u-1">
+		<div class="pc-tab">
+			<input checked="checked" id="tab1" type="radio" name="pct" />
+			<input id="tab2" type="radio" name="pct" />
+			<input id="tab3" type="radio" name="pct" />
+			  <nav class="xs-hide">
+			    <ul>
+			      <li class="tab1">
+			        <label for="tab1">{{item.name}}</label>
+			      </li>
+			      <li class="tab2">
+			        <label for="tab2">Photos from Shows</label>
+			      </li>
+			    </ul>
+			  </nav>
+			  <section>
+			    <div class="tab1">
+			       
+			      	{{item.description}}
+			      
+			    </div>
+
+			    <div class="tab2">
+			      <p class="photos">
+			      	{% for image in item.images %}
+
+			      		<a href="#img{{loop.index}}">
+			      			<img class="thumbnail" src="http://photos-eu.bazaarvoice.com/photo/2/cGhvdG86dGlja2V0bWFzdGVy/{{ image }}">
+			      		</a>
+
+			      		<a href="#_" class="lightbox" id="img{{loop.index}}"> 
+			      			<img src="http://photos-eu.bazaarvoice.com/photo/2/cGhvdG86dGlja2V0bWFzdGVy/{{ image }}">
+			      		</a> 
+
+			      	{% endfor %}
+			      </p>
+			    </div>
+			  </section>
+		</div>
+	</div>
+</div> #}
+{% if item.description|length > 0 %}
+	<div class="pure-g">
+		<div class="pure-u-1 artistdescriptionblock">
+			<p>
+				{{item.description|replace({"&#39;":"'"})}}
+			</p>
+		</div>
+	</div>
+{% endif %}
+
+{% if item.schedule.data|length > 0 %}
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<h4>{{item.name}} Reviews</h4>	
+		</div>
+	</div>
+
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<div class="scheduleblock">
+				{% for s in item.schedule.data %}
+				 <div class="schedule">	
+					<div class="item"><i>{{s.name|replace({(item.name|trim):'',':':''})}}</i></div>
+					<i class="fas fa-clock"></i> {{s.when.date}} - {{s.when.time}} 
+					<div class="item"> <i class="fas fa-thumbtack"></i> {{s.venue.name}}</div> 
+					<div class="item"><i class="fas fa-map-marker-alt"></i> {{s.venue.state}} - {{s.venue.city}} - {{s.venue.country}}</div>
+					
+					<img class="tmimage" height="19px" src="/img/tmlogo_grey.png"/>
+				 </div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+{% if item.schedule.last_update|length > 0 %}
+	{# triggering schedule updater #}
+{% endif %}
+
+{% if item.images|length > 0 %}
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<h4>{{item.name}}</h4>	
+		</div>
+	</div>
+
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<div class="artistphotosblock{% if item.images|length < 5 %} smallphotoblock{% endif %}">
+				<p class="photos">
+			      	{% for image in item.images %}
+
+			      		{# <a href="/gallery/{{item.id}}#img{{loop.index}}"><img src="https://photos-eu.bazaarvoice.com/photo/2/cGhvdG86dGlja2V0bWFzdGVy/{{ image }}"></a> #}
+
+			      		{# <a href="#img{{loop.index}}">
+			      			<img class="thumbnail" src="https://photos-eu.bazaarvoice.com/photo/2/cGhvdG86dGlja2V0bWFzdGVy/{{ image }}">
+			      		</a>
+
+			      		<a href="#_" class="lightbox" id="img{{loop.index}}"> 
+			      			<img src="https://photos-eu.bazaarvoice.com/photo/2/cGhvdG86dGlja2V0bWFzdGVy/{{ image }}">
+			      		</a> #}
+
+			      		<img class="thumbnail" alt="picture # {{loop.index}}" src="https://photos-eu.bazaarvoice.com/photo/2/cGhvdG86dGlja2V0bWFzdGVy/{{ image }}">
+			      	{% endfor %}
+				</p>
+			</div>
+		</div>
+	</div>
+{% endif %}
+
+
+{% if item.comments|length > 0 %}
+
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<h4>Customers` Reviews</h4>
+		</div>
+	</div>
+
+	{% for comment in item.comments %}
+
+	<div class="pure-g comments">
+		<div class="pure-u-1">
+			<div  class="stars">
+				{% for i in 1..comment.rating %}
+					★
+				{% endfor %}
+				{% if comment.rating<5 %}
+					{% for i in 1..5-comment.rating %}
+						☆
+					{% endfor %}
+				{% endif %}
+			</div> 
+
+			<div class="username"><strong>{{ comment.author }}</strong></div>
+			<div class="feebacktext">
+			{{ comment.text|replace({'\\u2019':"'",'\\u201d':'','\\u201c':'','\\u2013':' ','\\n':"<br>"}) }}
+			</div>
+			<span class="placeandtime">{{ comment.details }}</span>
+		</div>
+	</div>
+
+			{% if comment == item.comments[2] %}
+				<div class="neighbors">
+				{% for neighbor in item.neighbors %}
+					<a href="/{{neighbor['id']}}/{{neighbor['name']|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{neighbor['name']}}</a> {% if loop.last == false %} :: {% endif %}
+				{% endfor %}
+				</div>
+			{% endif %}
+		
+	{% endfor %}
+
+{% endif %}
+
+{% if item.comments|length < 3 %}
+	<div class="neighbors margintop15">
+		{% for neighbor in item.neighbors %}
+
+			{% if item.other_artists_comments|length > 0 %}
+				{% set foo = item.other_artists_comments|json_encode %}
+			{% else %}
+				{% set foo = '' %}
+			{% endif %}
+
+			{% if neighbor['name'] not in foo %}
+
+				<a href="/{{neighbor['id']}}/{{neighbor['name']|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{neighbor['name']}}</a> {% if loop.last == false %} :: {% endif %}
+
+			{% endif %}		
+
+		{% endfor %}
+	</div>
+{% endif %}
+
+
+{# other artists comments #}
+
+
+{% if item.other_artists_comments|length > 0 %}
+
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<h4>Fan Reviews</h4>
+
+			There are <b>no reviews about {{item.name}}</b> for now, but check out reviews about other artists below.
+
+			<br>
+			<br>
+		</div>
+	</div>
+
+	{% for comment in item.other_artists_comments %}
+
+	<div class="pure-g comments">
+
+		<div class="pure-u-1-4">
+				<img src="{{ comment.artists_image }}" width="90%" />
+		</div>
+
+		<div class="pure-u-3-4">
+			<div><a href="/{{ comment.artists_id }}/{{ comment.artists_name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{comment.artists_name}}</a></div>
+			<div  class="stars">
+				{% for i in 1..comment.rating %}
+					★
+				{% endfor %}
+				{% if comment.rating<5 %}
+					{% for i in 1..5-comment.rating %}
+						☆
+					{% endfor %}
+				{% endif %}
+			</div> 
+
+			<div class="username"><strong>{{ comment.author }}</strong></div>
+			<div class="feebacktext">
+			{{ comment.text|replace({'\\u2019':"'",'\\u201d':'','\\u201c':'','\\u2013':' ','\\n':"<br>"}) }}
+			</div>
+			<span class="placeandtime">{{ comment.details }}</span>
+		</div>
+	</div>
+		
+	{% endfor %}
+
+{% endif %}
+
+ 
+
+
+
+<div class="pure-g">
+	<div class="pure-u-1">
+		[Temporary disabled] Leave Feeback for {{item.name}} 
+	</div>
+</div>
+
+<div class="pure-g">
+	<div class="pure-u-1 pure-u-md-1-2">
+
+		<form class="pure-form" action="#" method="POST">
+		    <fieldset class="pure-group">
+		        <input autocomplete='name' name="feedback_name" type="text" class="pure-input-1" placeholder="Your Name">
+		        <input autocomplete='email' name="feedback_email" type="email" class="pure-input-1" placeholder="Email">
+		    </fieldset>
+		    <span class="rating">
+		        <input name="feedback_rate" type="radio" class="rating-input" id="rating-input-1-5" />
+		        <label for="rating-input-1-5" class="rating-star"></label>
+		        <input name="feedback_rate" type="radio" class="rating-input" id="rating-input-1-4" />
+		        <label for="rating-input-1-4" class="rating-star"></label>
+		        <input name="feedback_rate" type="radio" class="rating-input" id="rating-input-1-3" />
+		        <label for="rating-input-1-3" class="rating-star"></label>
+		        <input name="feedback_rate" type="radio" class="rating-input" id="rating-input-1-2" />
+		        <label for="rating-input-1-2" class="rating-star"></label>
+		        <input name="feedback_rate" type="radio" class="rating-input" id="rating-input-1-1" />
+		        <label for="rating-input-1-1" class="rating-star"></label>
+			</span>
+
+		    <fieldset class="pure-group">
+		        <input name="feedback_title" type="text" class="pure-input-1" placeholder="Title">
+		        <textarea name="feedback_text" class="pure-input-1" placeholder="Your feedback"></textarea>
+		    </fieldset>
+
+		    <button disabled type="submit" class="pure-button pure-input-1 pure-button-primary">Temporary disabled. Coming back soon!</button>
+		</form>
+
+	</div>
+</div>
+
+{% endblock %}
+
+ 

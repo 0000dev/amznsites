@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ venue.name }} Tickets{% endblock %}
+
+{% block body %}
+
+<div class="pure-g header">
+	<div class="pure-u-1">
+		<h1>{{venue.name}}</h1>
+	</div>
+</div>
+
+<br>
+
+<div class="pure-g toppanel">
+	<div class="pure-u-1 pure-u-sm-3-5">
+		<center>
+			<p>
+				<div class="venueimage">
+				 
+				<img alt="{{venue.name}}" src="{% if venue.image_small|length > 0 %} {{venue.image_small}} {% else %} /img/noimage-venue.jpg {% endif %}"/>
+		 
+				</div>
+				{{venue.address}}
+			</p>
+
+
+		</center>
+	</div>
+	<div class="pure-u-1 pure-u-sm-2-5">
+		<center>
+			<p><img alt="ad" src="/img/badge-ad.jpg"></p>
+		</center>
+	</div>
+</div>
+
+{% if venue.details|length > 0 %}
+	<div class="pure-g">
+		<div class="pure-u-1 artistdescriptionblock">
+			
+
+				{% if venue.details.openHoursDetail|length > 0 %}
+					<p><i class="far fa-clock"></i> <b>Open hours</b> <br> {{venue.details.openHoursDetail}}</p>
+				{% endif %}
+
+				{% if venue.details.phoneNumberDetail|length > 0 %}
+					<p><i class="fas fa-phone-square"></i> <b>Contact.</b> {{venue.details.phoneNumberDetail}}</p>
+				{% endif %}
+
+				{% if venue.details.acceptedPaymentDetail|length > 0 %}
+					<i class="far fa-credit-card"></i> <b>Payment details.</b> {{venue.details.acceptedPaymentDetail}}</p>
+				{% endif %}
+
+				{% if venue.details.willCallDetail|length > 0 %}
+					<p><i class="fas fa-info-circle"></i> {{venue.details.willCallDetail}}</p>
+				{% endif %}
+			 
+			</p>
+		</div>
+	</div>
+{% endif %}
+
+{% if venue.schedule_data|length > 0 %}
+	<div class="pure-g">
+		<div class="pure-u-1">
+			<h4>{{venue.name}} Tickets and Event Dates</h4>
+		</div>
+	</div>
+	{% set cols = 2 %}
+	{% for s in venue.schedule_data %}
+			{% if loop.index0 % cols == 0 %}
+			<div class="pure-g">
+			{% endif %}
+			<div class="pure-u-1 pure-u-md-1-2">
+				<div class="pure-g ">
+					<div class="venueschedulecontainer">
+						<div class="pure-u-2-5 venueouter">
+							<img alt="{{s.name}}" class="vertical-align" src="{{s.image}}">
+						</div>
+						<div class="pure-u-3-5">
+							<div class="venuescheduledetails">
+								<div class="venueitem"> <strong> {{s.name}} </strong></div>
+								<i class="fas fa-calendar-alt"></i> {{s.date}} <br>
+								<i class="fab fa-itunes-note"></i> Genre: {{s.genre}} <br>
+								{# <p>{{s.info}} </p> #}
+								<i class="fas fa-dollar-sign"></i> Price: {{s.price.min}} {{s.price.currency}} {% if s.price.max != s.price.min %} - {{s.price.max}} {{s.price.currency}} {% endif %} <br>
+								<a href="http://href.li/?{{s.url}}"><img alt="tmbutton" width="100" src="/img/tmlogo_grey.png"></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% if (loop.index0 % cols == cols - 1 or loop.last) %}
+			</div>
+			{% endif %}
+	{% endfor %}
+{% endif %}
+ 
+ <div class="pure-g">
+	<div class="pure-u-1">
+		{% if neighbors|length > 0 %}
+			<div class="neighbors margintop15">
+				{% for neighbor in neighbors %}
+					<a href="/venue/{{neighbor['id']}}/{{neighbor['name']|trim|replace({" ":"-", ".":""})}}">{{neighbor['name']}}</a> {% if loop.last == false %} :: {% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

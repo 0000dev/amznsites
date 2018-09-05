@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>{% block title %}altershopper. Reviews of All Things{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" type="text/css" href="/css/pure-min.css">
+        <link rel="stylesheet" type="text/css" href="/css/pure-extend.css">
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="/css/grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+            <link rel="stylesheet" type="text/css" href="/css/grids-responsive-min.css">
+        <!--<![endif]-->
+        <link rel="stylesheet" type="text/css" href="/css/tickets.css">
+        <link rel="stylesheet" type="text/css" href="/css/tabs.css">
+
+		<link rel="stylesheet" type="text/css" href="/css/slick/slick.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/slick/slick-theme.css"/>
+
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="/js/slick/slick.min.js"></script>
+
+    {% endblock %}
+</head>
+
+<body>
+
+	<div class="homepage bigheader" id="bigheader">
+
+		<form  action="/search" method="POST">
+			<div class="searchlinediv">
+			<div class="searchlinediv"> 
+				<input name="search" placeholder=" &nbsp; What are you looking for?" onkeydown="if (event.keyCode == 13) myFunction(this.value)" type="text" />
+			</div>
+			</div>
+		</form>
+	 
+	</div>
+ 
+<div class="content">
+
+	<div class="slickslider">
+	{% for comment in comments %}
+
+		<div class="pure-g comments margintop15">
+
+			
+
+			<div class="pure-u-1-6">
+				<img alt="{{ comment.items_name }} Image" src="/img/books_covers/{{ comment.items_image }}.jpg" class="homepageimage" />
+			</div>
+			<div class="pure-u-5-6">
+				<div class="commentsheader"><a href="/{{ comment.items_id }}/{{ comment.items_name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{ comment.items_name }}</a></div>
+				<div  class="stars">
+					{% for i in 1..comment.rating %}
+						★
+					{% endfor %}
+					{% if comment.rating<5 %}
+						{% for i in 1..5-comment.rating %}
+							☆
+						{% endfor %}
+					{% endif %}
+				</div> 
+
+				<div class="username"><strong>{{ comment.author }}</strong></div>
+				<div class="feebacktext">
+				
+
+
+					{{ comment.text|length > 200 ? comment.text|slice(0, 200) ~ '...' : comment.text|replace({'\\u2019':"'",'\\u201d':'','\\u201c':'','\\u2013':' ','\\n':"<br>"}) }}
+				</div>
+				<span class="placeandtime">{{ comment.details }}</span>
+			</div>
+		</div>
+
+	{% endfor %}
+	</div>
+
+	<div class="pure-g">
+		<div class="pure-u-1">
+	 
+			<div class="home artistphotosblock">
+				<p class="photos">
+
+			    {% for a in items %}
+			    	<a href="/{{a.id}}/{{a.name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}"><img alt="{{a.name}}" src="/img/books_covers/{{a.image}}.jpg" title="{{a.name}}" /></a>
+			    {% endfor %}
+			      
+				</p>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="darkfooter">
+	<div class="content">
+
+		<div class="pure-g">
+			
+			{# <div class="pure-u-1-3">
+
+				<b>Popular Categories</b>
+				<ul>
+					
+						<li><a href="/category/48">--</a></li>
+						<li><a href="/category/3">--</a></li>
+						<li><a href="/category/5">--</a></li>
+						<li><a href="/category/26">-- Fiction</a></li>
+					
+				</ul>
+			</div> #}
+
+
+			<div class="pure-u-1-3">
+				
+				<b>Recently added</b>
+				<div class="slickslider">
+				
+
+				{% set cols = 3 %}
+				{% for f in footer_links %}
+					{% if loop.index0 % cols == 0 %}
+						<div>
+						<ul>
+					{% endif %}
+
+					<li><a href="/{{f.id}}/{{f.name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{f.name}}</a></li>
+
+					{% if (loop.index0 % cols == cols - 1 or loop.last) %}
+						</ul>
+						</div>
+					{% endif %}
+
+				{% endfor %}
+
+			
+				</div>
+
+			</div>
+
+			<div class="pure-u-2-3">
+
+				<b>More information</b>
+				<ul>
+					
+						<li><a href="/page/privacy-policy">Privacy Policy</a></li>
+					
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+<script>
+    $(document).ready(function(){
+	  $('.slickslider').slick({
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		autoplay: true,
+		autoplaySpeed: 2000,
+		dots: false,
+	    prevArrow: false,
+	    nextArrow: false
+	  });
+	});
+
+	document.getElementById("bigheader").style.height = "100vh";
+</script>
+
+</body>
+
+</html>
