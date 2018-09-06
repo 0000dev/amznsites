@@ -15,7 +15,7 @@ require './vendor/autoload.php';
 
 use Gregwar\Image\Image;
 
-$useproxy = false;
+$useproxy = true;
 
 
 include_once ('./class.proxy.php');
@@ -45,6 +45,8 @@ $res = $item = $am = array();
 $proxy = new Proxy();
 
 
+$robot_check_times = 0;
+
 
 foreach ($lines as $key => $value) {
 
@@ -56,11 +58,11 @@ foreach ($lines as $key => $value) {
   $url = $value;
 
   // NOT TO COLLECT URLS that include offer-listing
-  preg_match('#/dp/(.+?)/ref#', $url, $ok);
+  preg_match('#/dp/(.+?)/ref#', urldecode($url), $ok);
 
   if (!isset($ok[1]))
   {
-    echo "\033[31mERR. No amazon ID in url. Skipping \033[0m".$url;
+    echo "\033[31mERR. No amazon ID in url. Skipping \033[30m".$url."\033[0m";
     continue;
   }
 
@@ -94,11 +96,29 @@ foreach ($lines as $key => $value) {
   } else
     $html = get($url);
 
+  if (strstr($html, 'Robot Check</title>'))
+  {
+    echo "\033[31m - ROBOT CHECK. - ".$robot_check_times." Skipping \033[0m";
+    
+    if ($robot_check_times>3)
+      die (PHP_EOL.'CANT PASS ROBOT CHECK MORE THAN 4 TIMES IN A ROW. Dying....'.PHP_EOL);
+    else
+    {
+      $robot_check_times++;
+      continue;
+    }
+  }
+
+  $robot_check_times = 0;
+
   // image
   preg_match('#id="(imgBlkFront|landingImage)" data-a-dynamic-image="{.+?(http.+?)&#', $html, $_ok);
 
   if (!isset($_ok[2]))
-    echo "\033[31m - ERR. No image found. Skipping \033[0m".$url;
+  {
+    echo "\033[31m - ERR. No image found. Skipping \033[30m".$url."\033[0m";
+    continue;
+  }
 
   //print_r($_ok); die;
   $item['image'] = $_ok[2];
@@ -108,6 +128,8 @@ foreach ($lines as $key => $value) {
 
   //$_ok[1] = str_replace(array('Amazon.com:','Amazon.com :','Amazon.com : '), array('','','',''), $_ok[1]);
   $item['name'] = preg_replace_callback("/(&#[0-9]+;)/", function($m) { return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES"); }, htmlspecialchars_decode($_ok[1]));
+
+  $item['name'] = str_replace('"', '', $item['name']);
 
   $tmp = array();
 
@@ -131,7 +153,7 @@ foreach ($lines as $key => $value) {
   // -
   if (strlen($item['name']) > 50)
   {
-    $tmp = explode('-', $item['name']);
+    $tmp = explode(' - ', $item['name']);
 
     if (count($tmp)>1)
     {
@@ -144,7 +166,43 @@ foreach ($lines as $key => $value) {
         $item['name'] = trim($tmp[0]);
     }
   }
- 
+
+  // ,
+  if (strlen($item['name']) > 50)
+  {
+    $tmp = explode(',', $item['name']);
+
+    if (count($tmp)>1)
+    {
+      usort($tmp,'sortarr');
+      if (strlen($tmp[0])>=50)
+        $item['name'] = trim($tmp[0]);
+      elseif (strstr(trim($tmp[1]), ' '))
+        $item['name'] = trim($tmp[0]).' - '.trim($tmp[1]);
+      else
+        $item['name'] = trim($tmp[0]);
+    }
+  }
+
+  // |
+  if (strlen($item['name']) > 50)
+  {
+    $tmp = explode('|', $item['name']);
+
+    if (count($tmp)>1)
+    {
+      usort($tmp,'sortarr');
+      if (strlen($tmp[0])>=50)
+        $item['name'] = trim($tmp[0]);
+      elseif (strstr(trim($tmp[1]), ' '))
+        $item['name'] = trim($tmp[0]).' - '.trim($tmp[1]);
+      else
+        $item['name'] = trim($tmp[0]);
+    }
+  }
+
+  $item['name'] = trim(preg_replace('#(amazon.com|\|^\:)#i', '', $item['name']));
+  $item['name'] = html_entity_decode($item['name']);
 
   echo " - \033[32m".$item['name']."\033[0m";
 
@@ -153,12 +211,30 @@ foreach ($lines as $key => $value) {
   //$item['author'] = $_ok[1];
 
   // categories (tags)
-  preg_match_all("#/gp/bestsellers/.+?'>(.+?)</a>#", $html, $_ok);
-  $item['cats'] = $_ok[1];
+  
+  $_ok = array();
+  $item['cats'] = array();
+    
+  preg_match_all("#wayfinding-breadcrumbs_container.+?<a.+?>(.+?)</a>.+?<a.+?>(.+?)</a>.+?<a.+?>(.+?)</a>#s", $html, $_ok);
+
+  if(!empty($_ok))
+  {
+    unset($_ok[0]);
+
+    foreach ($_ok as $_k => $_v) {
+        if (isset($_v[1]))
+          $item['cats'][] = trim($_v[1]);
+    }
+  } 
+
+  if (count($item['cats'])<1)
+  {
+    preg_match_all("#/gp/bestsellers/.+?'>(.+?)</a>#", $html, $_ok);
+    $item['cats'] = $_ok[1];
+  }
 
   if (count($item['cats'])>5)
     $item['cats'] = array_slice($item['cats'], -5, 5);
-
 
 
   // ---------- EPIC IMAGE TRANSITION / переписать блин все тут
@@ -171,13 +247,13 @@ foreach ($lines as $key => $value) {
   $item['image'] = substr(md5($gr_image_url), 0, 10);
 
   // getting image WITHOUT PROXY, because proxyrack is returning trash while getting images
-  file_put_contents('/home/dmytro/dev/php/amazonsites/public/img/books_covers/'.$item['image'].'.jpg', get($gr_image_url, false, true));
+  file_put_contents('/home/dmytro/dev/php/amazonsites/public/img/items_original/'.$item['image'].'.jpg', get($gr_image_url, false, true));
 
   //transparent_background('/home/dmytro/dev/php/amazonsites/public/img/books_covers/'.$item['image'].'.jpg', '255.255.255', '/home/dmytro/dev/php/amazonsites/public/img/books_covers/'.$item['image'].'.png');
 
-  $gr_image_url = '/home/dmytro/dev/php/amazonsites/public/img/books_covers/'.$item['image'].'.jpg';
+  $gr_image_url = '/home/dmytro/dev/php/amazonsites/public/img/items_original/'.$item['image'].'.jpg';
 
-  $save_to = '/home/dmytro/dev/php/amazonsites/public/img/books_bg/'.$item['image'].'.jpg';
+  $save_to = '/home/dmytro/dev/php/amazonsites/public/img/items_bg/'.$item['image'].'.jpg';
 
   $x = rand(1,3);
 

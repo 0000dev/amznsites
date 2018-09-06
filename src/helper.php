@@ -84,8 +84,13 @@ class Helper
 			$content['name'] = str_replace(array('-','.','/','+'), array(' ','','',''), $content['name']);
 			$name = str_replace(array('-','.','  ','/','+'), array(' ','',' ','',''), $name);
 
+			$content['name'] = str_replace(array('&ndash;','–'), '-', $content['name']);
+			$name = str_replace(array('&ndash;','–'), '-', $name);
+
 			$content['name'] = preg_replace('/\s+/', ' ',$content['name']);
 			$name = preg_replace('/\s+/', ' ',$name);
+
+			$content['name'] = html_entity_decode($content['name']);
 
 			/*echo $content['name'].PHP_EOL;
 			echo $name;*/

@@ -51,7 +51,7 @@
 			
 
 			<div class="pure-u-1-6">
-				<img alt="{{ comment.items_name }} Image" src="/img/books_covers/{{ comment.items_image }}.jpg" class="homepageimage" />
+				<img alt="{{ comment.items_name }} Image" src="/img/items_original/{{ comment.items_image }}.jpg" class="homepageimage" />
 			</div>
 			<div class="pure-u-5-6">
 				<div class="commentsheader"><a href="/{{ comment.items_id }}/{{ comment.items_name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{ comment.items_name }}</a></div>
@@ -87,7 +87,7 @@
 				<p class="photos">
 
 			    {% for a in items %}
-			    	<a href="/{{a.id}}/{{a.name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}"><img alt="{{a.name}}" src="/img/books_covers/{{a.image}}.jpg" title="{{a.name}}" /></a>
+			    	<a href="/{{a.id}}/{{a.name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}"><img alt="{{a.name}}" src="/img/items_original/{{a.image}}.jpg" title="{{a.name}}" /></a>
 			    {% endfor %}
 			      
 				</p>
@@ -116,7 +116,7 @@
 			</div> #}
 
 
-			<div class="pure-u-1-3">
+			<div class="pure-u-1-3 homefooter">
 				
 				<b>Recently added</b>
 				<div class="slickslider">
@@ -129,7 +129,7 @@
 						<ul>
 					{% endif %}
 
-					<li><a href="/{{f.id}}/{{f.name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{f.name}}</a></li>
+					<li ><a href="/{{f.id}}/{{f.name|trim|replace({" ":"-", ".":"", "/":"","+":""})}}">{{f.name}}</a></li>
 
 					{% if (loop.index0 % cols == cols - 1 or loop.last) %}
 						</ul>
