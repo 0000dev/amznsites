@@ -1,6 +1,6 @@
 /vendor/*
 /cache/*
-/public/img/books_bg/*
-/public/img/boooks_covers/*
+/public/img/items_bg/*
+/public/img/items_original/*
 !/vendor/rawInclude
 /src/config.php
