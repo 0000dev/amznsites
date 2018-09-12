@@ -4,3 +4,4 @@
 /public/img/items_original/*
 !/vendor/rawInclude
 /src/config.php
+/struct.sql

@@ -7,14 +7,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
 
-include_once ('./class.proxy.php');
-
-define('DB_NAME','amazon');
-define('DB_USER','slim');
-define('DB_PASS','slim');
-define('DB_CHARSET','utf8'); 
-define('DB_PORT', 3306); 
-define('DB_HOST', 'localhost'); 
+require './class.proxy.php';
+require '../../config.php';
 
 $dsn = "mysql:host=".DB_HOST.";dbname=".DB_NAME.";port=".DB_PORT.";charset=".DB_CHARSET;
 $opt = [
@@ -41,6 +35,7 @@ $q = 'SELECT
 	comments.items_id is NULL
 ';
 
+
 $stmt = $db->prepare($q);
 $stmt -> execute();
 $res = $stmt -> fetchAll();
@@ -50,6 +45,8 @@ $res = $stmt -> fetchAll();
 // <title dir="ltr">Robot Check</title>  --- проверять на вот это вхождение
 
 $proxy = new Proxy();
+
+$nicknames = file('./lists/nicknames.txt', FILE_IGNORE_NEW_LINES);
 
 foreach ($res as $k => $v) {
 	
@@ -138,10 +135,10 @@ foreach ($res as $k => $v) {
 			//	continue;
 			
 			//echo $ok[2][$_k].PHP_EOL;
-			$q = 'INSERT INTO comments (items_id, title, text, rating)
-				VALUES (:items_id, :title, :text, :rating)';
+			$q = 'INSERT INTO comments (items_id, title, author, text, rating)
+				VALUES (:items_id, :title, :author, :text, :rating)';
 			$stmt = $db->prepare($q);
-			$stmt -> execute([':items_id' => $v['id'], ':title' => $_v, ':text' => @remove_emoji($ok[3][$_k]), ':rating' => $ok[2][$_k]]);
+			$stmt -> execute([':items_id' => $v['id'], ':title' => $_v, ':author' => $nicknames[rand(0,count($nicknames)-1)], ':text' => @remove_emoji($ok[3][$_k]), ':rating' => $ok[2][$_k]]);
 
 		}
 

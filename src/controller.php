@@ -115,18 +115,21 @@ class Controller
 		if (isset($content['cats_id']) and !is_array($content['cats_id']))
 			$content['cats_id'] = array($content['cats_id']);
 
-		$content['author'] = json_decode($content['author'],1);
-
-		if (isset($content['author']))
+		if (strstr($content['author'], '}')) // assuming $content['author'] is in json format
 		{
-			$a = '';
-			foreach ($content['author'] as $k => $v) {
+			$content['author'] = json_decode($content['author'],1);
 
-				$a = $a.$v;
-				if ($k < count($content['author'])-1)
-					$a = $a.', ';
+			if (isset($content['author']))
+			{
+				$a = '';
+				foreach ($content['author'] as $k => $v) {
+
+					$a = $a.$v;
+					if ($k < count($content['author'])-1)
+						$a = $a.', ';
+				}
+				$content['author'] = $a;
 			}
-			$content['author'] = $a;
 		}
 		
 		$this->twig->display('item.html.twig', array('item' => $content));
