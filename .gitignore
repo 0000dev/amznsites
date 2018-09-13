@@ -5,3 +5,5 @@
 !/vendor/rawInclude
 /src/config.php
 /struct.sql
+/struct_myisam.sql
+/struct_myisam_.sql

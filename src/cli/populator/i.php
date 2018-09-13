@@ -166,19 +166,23 @@ if (!isset($_ok[2]))
 
 
 //name
-preg_match('#<span id="productTitle" class="a-size-large">(.+?)</span>#', $html, $_ok);
+preg_match('#<span id="productTitle" class="a-size-large(.+?|)>(.+?)</span>#', $html, $_ok);
 
-if (!isset($_ok[1]))
-  preg_match('#<span id="ebooksProductTitle" class="a-size-extra-large">(.+?)</span>#', $html, $_ok);
+if (!isset($_ok[2]))
+  preg_match('#<span id="productTitle" class="a-size-extra-large(.+?|)>(.+?)</span>#', $html, $_ok);
 
-if (!isset($_ok[1]))
-  preg_match('#<span id="ebooksProductTitle" class="extra-large">(.+?)</span>#', $html, $_ok);
+if (!isset($_ok[2]))
+  preg_match('#<span id="ebooksProductTitle" class="a-size-extra-large(.+?|)>(.+?)</span>#', $html, $_ok);
 
-if (!isset($_ok[1]))
-  preg_match('#<span id="ProductTitle" class="a-size-extra-large">(.+?)</span>#', $html, $_ok);
+if (!isset($_ok[2]))
+  preg_match('#<span id="ebooksProductTitle" class="extra-large(.+?|)>(.+?)</span>#', $html, $_ok);
+
+if (!isset($_ok[2]))
+  preg_match('#<span id="ProductTitle" class="a-size-extra-large(.+?|)>(.+?)</span>#', $html, $_ok);
+
 
 //$_ok[1] = str_replace(array('Amazon.com:','Amazon.com :','Amazon.com : '), array('','','',''), $_ok[1]);
-$item['name'] = preg_replace_callback("/(&#[0-9]+;)/", function($m) { return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES"); }, htmlspecialchars_decode($_ok[1]));
+$item['name'] = preg_replace_callback("/(&#[0-9]+;)/", function($m) { return mb_convert_encoding($m[1], "UTF-8", "HTML-ENTITIES"); }, htmlspecialchars_decode($_ok[2]));
 
 $item['name'] = str_replace('"', '', $item['name']);
 
